@@ -17,6 +17,5 @@ yarn-error.log
 /.idea
 /.vscode
 *.sql
-/hosting
 LOGIN.txt
 SOP.txt
