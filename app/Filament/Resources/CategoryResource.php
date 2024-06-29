@@ -30,7 +30,8 @@ class CategoryResource extends Resource
                     ->required(),
                 Forms\Components\FileUpload::make('image')
                     ->image()
-                    ->required(),
+                    ->required()
+                    ->disk('foto'),
             ]);
     }
 
@@ -38,7 +39,8 @@ class CategoryResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\ImageColumn::make('image'),
+                Tables\Columns\ImageColumn::make('image')
+                    ->disk('foto'),
                 Tables\Columns\TextColumn::make('name')
                     ->searchable(),
                 Tables\Columns\IconColumn::make('is_expense')
