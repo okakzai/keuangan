@@ -38,8 +38,10 @@ class CategoryResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\ImageColumn::make('image'),
+                Tables\Columns\ImageColumn::make('image')
+                    ->label('Icon'),
                 Tables\Columns\TextColumn::make('name')
+                    ->label('Nama')
                     ->searchable(),
                 Tables\Columns\IconColumn::make('is_expense')
                     ->label('Tipe')
