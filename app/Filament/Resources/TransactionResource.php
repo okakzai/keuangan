@@ -2,19 +2,22 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\TransactionResource\Pages;
-use App\Filament\Resources\TransactionResource\RelationManagers;
-use App\Models\Transaction;
 use Filament\Forms;
-use Filament\Forms\Form;
-use Filament\Resources\Resource;
 use Filament\Tables;
+use Filament\Forms\Form;
 use Filament\Tables\Table;
+use App\Models\Transaction;
+use Filament\Resources\Resource;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use App\Filament\Resources\TransactionResource\Pages;
+use App\Filament\Resources\TransactionResource\RelationManagers;
+use Locale;
 
 class TransactionResource extends Resource
 {
+    
+    
     protected static ?string $model = Transaction::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
@@ -47,20 +50,28 @@ class TransactionResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('name')
-                    ->searchable(),
+                Tables\Columns\ImageColumn::make('category.image')
+                    ->label('Kategori'),
                 Tables\Columns\TextColumn::make('category.name')
-                    ->sortable(),
+                    ->description(fn (Transaction $record): string => $record->name)
+                    ->label('Nama')
+                    ->searchable(),
                 Tables\Columns\IconColumn::make('category.is_expense')
-                    ->label('Pengeluaran')    
+                    ->label('Tipe')
+                    ->trueIcon('heroicon-s-arrow-up-circle')
+                    ->falseIcon('heroicon-s-arrow-down-circle')
+                    ->trueColor('danger')
+                    ->falseColor('success')  
                     ->boolean(),
                 Tables\Columns\TextColumn::make('date')
+                    ->label('Tanggal')
                     ->date()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('amount')
+                    ->label('Jumlah')
                     ->numeric()
+                    ->money('IDR')
                     ->sortable(),
-                Tables\Columns\ImageColumn::make('image'),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()
