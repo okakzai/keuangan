@@ -22,4 +22,16 @@ class Transaction extends Model
     public function category(): BelongsTo {
         return $this->belongsTo(Category::class);
     }
+
+    public function scopeIncomes($query){
+        return $query->whereHas('category',function($query){
+            $query->where('is_expense', false);
+        });
+    }
+
+    public function scopeOutcomes($query){
+        return $query->whereHas('category',function($query){
+            $query->where('is_expense', true);
+        });
+    }
 }
