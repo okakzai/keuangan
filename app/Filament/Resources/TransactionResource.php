@@ -27,20 +27,26 @@ class TransactionResource extends Resource
         return $form
             ->schema([
                 Forms\Components\TextInput::make('name')
+                    ->label('Nama')
                     ->required()
                     ->maxLength(255),
                 Forms\Components\Select::make('category_id')
+                    ->label('Kategori')
                     ->relationship('category', 'name')
                     ->required(),    
-                Forms\Components\DatePicker::make('date')
+                Forms\Components\DatePicker::make('tanggal')
+                    ->label('Tanggal')
                     ->required(),
                 Forms\Components\TextInput::make('amount')
+                    ->label('Jumlah')    
                     ->required()
                     ->numeric(),
                 Forms\Components\TextInput::make('note')
+                    ->label('Catatan')
                     ->required()
                     ->maxLength(255),
                 Forms\Components\FileUpload::make('image')
+                    ->label('Foto')
                     ->image()
                     ->required(),
             ]);
@@ -63,7 +69,7 @@ class TransactionResource extends Resource
                     ->trueColor('danger')
                     ->falseColor('success')  
                     ->boolean(),
-                Tables\Columns\TextColumn::make('date')
+                Tables\Columns\TextColumn::make('tanggal')
                     ->label('Tanggal')
                     ->date()
                     ->sortable(),
