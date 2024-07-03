@@ -7,14 +7,14 @@ use App\Models\Transaction;
 use Flowframe\Trend\TrendValue;
 use Filament\Widgets\ChartWidget;
 
-class WidgetOutcomesChart extends ChartWidget
+class WidgetIncomesChart extends ChartWidget
 {
-    protected static ?string $heading = 'Pengeluaran';
-    protected static string $color = 'danger';
+    protected static ?string $heading = 'Pemasukan';
+    protected static string $color = 'success';
 
     protected function getData(): array
     {
-        $data = Trend::query(Transaction::outcomes())
+        $data = Trend::query(Transaction::incomes())
         ->between(
             start: now()->startOfYear(),
             end: now()->endOfYear(),
@@ -25,7 +25,7 @@ class WidgetOutcomesChart extends ChartWidget
         return [
             'datasets' => [
                 [
-                    'label' => 'Pengeluaran Per Hari',
+                    'label' => 'Pemasukan Per Hari',
                     'data' => $data->map(fn (TrendValue $value) => $value->aggregate),
                 ],
             ],
